@@ -1,0 +1,57 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+
+DROP DATABASE IF EXISTS GongDB;
+CREATE DATABASE GongDB;
+
+USE GongDB;
+
+DROP TABLE IF EXISTS `GongDB`.`Devices`;
+CREATE TABLE Devices (
+ `PiId` INT NOT NULL AUTO_INCREMENT,
+ `Name` VARCHAR(255) NOT NULL,
+ `Notes` VARCHAR(255),
+PRIMARY KEY (`PiId`),
+INDEX `PiId_idx` (`PiId` ASC)
+);
+
+
+DROP TABLE IF EXISTS `GongDB`.`RingGroups`;
+CREATE TABLE RingGroups (
+ `GroupName` VARCHAR(255) NOT NULL,
+ `PiId` INT NOT NULL,
+PRIMARY KEY (`GroupName`),
+CONSTRAINT `PiId`
+FOREIGN KEY (`PiId`)
+REFERENCES `GongDB`.`Devices` (`PiId`)
+ON DELETE CASCADE
+ON UPDATE CASCADE
+);
+
+
+DROP TABLE IF EXISTS `GongDB`.`Courses`;
+CREATE TABLE `Courses` (
+ `CourseType` VARCHAR(255) NOT NULL,
+ `Day` INT NOT NULL,
+ `Signature` VARCHAR(255) NOT NULL,
+PRIMARY KEY (`CourseType`),
+INDEX `CourseType_idx` (`CourseType` ASC),
+FOREIGN KEY (Signature
+);
+
+
+DROP TABLE IF EXISTS `GongDB`.`Signatures`;
+CREATE TABLE `Signatures` (
+ `SignatureName` VARCHAR(255),
+ `Hour` INT NOT NULL,
+ `Minute` INT NOT NULL,
+ `RingGroupName` VARCHAR(255) NOT NULL,
+PRIMARY KEY (`SignatureName`),
+INDEX `SignatureName_idx` (`SignatureName`),
+CONSTRAINT `RingGroupName`
+FOREIGN KEY (`RingGroupName`)
+REFERENCES `GongDB`.`RingGroups` (`RingGroupName`)
+ON DELETE CASCASE
+ON UPDATE CASCADE
+);
+

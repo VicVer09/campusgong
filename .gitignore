@@ -1,6 +1,5 @@
 # Virtual Environment
-pi/venv/
-django/venv/
+venv/
 *.swp
 
 ### Django ###
